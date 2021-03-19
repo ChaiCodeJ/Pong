@@ -31,6 +31,10 @@ int main() {
 	rightPaddle.setOutlineColor(sf::Color(0, 0, 0));
 	rightPaddle.setPosition(screenWidth, screenHeight / 2);
 	rightPaddle.setOrigin(paddleSize / 2.f);
+	//Bot properties
+	int botTarget = screenHeight / 2;
+	float botPeriod = 0.2f;
+	float botTimer = 0.f;
 
 	//Create the ball
 	sf::CircleShape ball;
@@ -104,20 +108,29 @@ int main() {
 				if (pos.y - paddleSize.y / 2 - paddleSpeed * deltaTime < 0) leftPaddle.setPosition(pos.x, paddleSize.y / 2);
 				else leftPaddle.move(0, -paddleSpeed * deltaTime);
 			}
-
 			//the rightPaddle Moving
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			printf("%f\n", angleBall);
+			//Update target of bot
+			botTimer += deltaTime;
+			if (botTimer >= botPeriod) {
+				if (sin(angleBall * pi / 180)>0.f) {
+					botTarget = ball.getPosition().y;
+					botTimer -= botPeriod;
+				}
+			}
+			if (rightPaddle.getPosition().y + paddleSize.y/4 < botTarget)//sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 			{
 				sf::Vector2f pos = rightPaddle.getPosition();
 				if (pos.y + paddleSize.y / 2 + paddleSpeed * deltaTime > screenHeight) rightPaddle.setPosition(pos.x, screenHeight - paddleSize.y / 2);
 				else rightPaddle.move(0, paddleSpeed * deltaTime);
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			else if (rightPaddle.getPosition().y -paddleSize.y/4 > botTarget)//sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
 				sf::Vector2f pos = rightPaddle.getPosition();
 				if (pos.y - paddleSize.y / 2 - paddleSpeed * deltaTime < 0) rightPaddle.setPosition(pos.x, paddleSize.y / 2);
 				else rightPaddle.move(0, -paddleSpeed * deltaTime);
 			}
+
 
 			//the ball moving
 			float factor = ballSpeed * deltaTime;
@@ -128,7 +141,6 @@ int main() {
 			if (ball.getPosition().y <= 0 || ball.getPosition().y >= screenHeight) {
 				angleBall = 180.f - angleBall;
 				sfx.play();
-				
 			}
 			//Check Collison with the paddle
 			//Left Paddle

@@ -1,4 +1,9 @@
 ﻿  Pong.cpp
-D:\GameC++\Pong\Pong\Pong.cpp(6,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\GameC++\Pong\Pong\Pong.cpp(88,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Pong.vcxproj -> D:\GameC++\Pong\Debug\Pong.exe
+D:\GameC++\GP\Pong\Pong\Pong.cpp(6,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\GameC++\GP\Pong\Pong\Pong.cpp(92,24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\GameC++\GP\Pong\Pong\Pong.cpp(117,36): warning C4244: '=': conversion from 'const T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+  Pong.vcxproj -> D:\GameC++\GP\Pong\Debug\Pong.exe
